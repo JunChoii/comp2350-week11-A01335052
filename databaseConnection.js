@@ -1,31 +1,18 @@
-const mysql = require('mysql2');
+const MongoClient = require("mongodb").MongoClient;
 
-const is_heroku = process.env.IS_HEROKU || false;
+const is_qoddi = process.env.IS_QODDI || false;
 
-const dbConfigHeroku = {
-	host: "us-cdbr-east-03.cleardb.com",
-	user: "b1ab7fb2ee03bc",
-	password: "2a484a2d",
-	database: "heroku_3d208ad4bd6f421",
-	multipleStatements: false,
-	namedPlaceholders: true
-};
+const qoddiURI =
+"mongodb+srv://theMongoAdmin:accidentalLoginSteps@cluste0r.4ulcc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
-const dbConfigLocal = {
-	host: "localhost",
-	user: "root",
-	password: "Password",
-	database: "lab_example",
-	multipleStatements: false,
-	namedPlaceholders: true
-};
+const localURI = "mongodb://127.0.0.1/?authSource=admin&retryWrites=true&w=majority"
 
-if (is_heroku) {
-	var database = mysql.createPool(dbConfigHeroku);
+if (is_qoddi) {
+var database = new MongoClient(qoddiURI,
+ {useNewUrlParser: true, useUnifiedTopology: true});
 }
 else {
-	var database = mysql.createPool(dbConfigLocal);
+var database = new MongoClient(localURI,
+ {useNewUrlParser: true, useUnifiedTopology: true});
 }
-
 module.exports = database;
-		

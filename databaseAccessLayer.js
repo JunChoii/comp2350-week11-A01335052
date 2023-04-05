@@ -1,4 +1,4 @@
-const database = include('/databaseConnection');
+const database = include('databaseConnection');
 
 const passwordPepper = "SeCretPeppa4MySal+";
 
